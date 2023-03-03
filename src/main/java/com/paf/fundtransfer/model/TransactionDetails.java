@@ -2,6 +2,7 @@ package com.paf.fundtransfer.model;
 
 import java.util.UUID;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 
@@ -15,13 +16,12 @@ public class TransactionDetails {
     private String toAccount;
 
     @NotNull(message="Please choose an amount")
+    @Min(value=10, message="Minimum value of $10")
     private Double amount;
 
     private String comments;
 
     public TransactionDetails() {
-        // generate id
-        setId(generateRandomId());
     }
 
     public String getId() {
@@ -60,13 +60,6 @@ public class TransactionDetails {
 
     public void setComments(String comments) {
         this.comments = comments;
-    }
-    
-     // method to generate 8 char ID
-     public String generateRandomId() {
-        String id = UUID.randomUUID().toString().substring(0,8); 
-        System.out.println("UUID: " + id);
-        return id;
     }
 
     @Override

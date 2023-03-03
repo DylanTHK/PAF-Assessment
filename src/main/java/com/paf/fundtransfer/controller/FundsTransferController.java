@@ -6,11 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.HttpSession;
@@ -31,14 +29,19 @@ public class FundsTransferController {
     @Autowired
     private AccountRepo accountRepo;
 
-    @GetMapping(path="/")
+    @GetMapping(path={"/", "transfer.html"})
     public String getView(Model model, HttpSession sess) {
+        // restart session
+        sess.invalidate();
+
         // query sql for list of accounts (for thymeleaf)
         List<Account> accounts = transferSvc.getAccounts();
         System.out.println("\nController >>> list of Accounts: " + accounts);
+
         // add list of accounts to 
-        model.addAttribute("details", new TransactionDetails());
+        model.addAttribute("td", new TransactionDetails());
         model.addAttribute("accounts", accounts);
+        // sess.setAttribute("acc", accounts);
 
         return "transfer";
     }
@@ -46,14 +49,28 @@ public class FundsTransferController {
     @PostMapping(path="/transfer",
         consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String checkTransfer(Model model, HttpSession sess, 
-        @Valid TransactionDetails td, BindingResult binding
-        // ,@RequestBody MultiValueMap<String, String> form
-        ) {
+        @Valid TransactionDetails td, BindingResult binding) {
+        // if (binding.hasErrors()) {
+        //     return "transfer";
+        // }
+        // System.out.println("\nBinding Results: " + binding);
+
+        System.out.println("\nTransaction Details: " + td);
+        List<Account> accounts = transferSvc.getAccounts();
+        // call service for validation (true if pass)
+        List<String> errorMessages = transferSvc.validateDetails(td);
         
-        // call service to check 
-
-
-
-        return "result";
+        System.out.println("List of errors: " + errorMessages);
+        // TODO
+        if (errorMessages.size() > 0) {
+            model.addAttribute("accounts", accounts);
+            model.addAttribute("td", td);
+            model.addAttribute("errors", errorMessages);
+            return "transfer";
+        } else {
+            // NO ERRORS: transferSvc.performTransaction(td);
+            model.addAttribute("td", td);
+            return "result";
+        }
     }
 }

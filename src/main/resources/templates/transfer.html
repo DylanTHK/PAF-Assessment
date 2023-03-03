@@ -9,19 +9,22 @@
 <body>
     <p>
         Session: 
-        <span data-th-text="${session}"></span>
+        <span data-th-text="${session.acc}"></span>
     </p>
     <p>
         Acounts:
         <span data-th-text="${accounts}"></span>
     </p>
+    <p>
+        Details:
+        <span data-th-text="${td}"></span>
+    </p>
     <h1>Funds Transfer</h1>
-    <form method="POST" action="/transfer" data-th-object="${details}">
+    <form method="POST" action="/transfer" data-th-object="${td}">
         <p>
             <!-- https://www.baeldung.com/thymeleaf-select-option -->
             From account:
-            <select name="from" >
-                <!-- data-th-field="${details.fromAccount}" -->
+            <select name="from" data-th-field="${td.fromAccount}">
                 <option data-th-each="acc: ${accounts}" 
                     data-th-value="${acc.name}" 
                     data-th-text="${acc.details}">
@@ -30,8 +33,7 @@
         </p>
         <p>
             To account:
-            <select name="to" >
-                <!-- data-th-field="${details.toAccount}" -->
+            <select name="to" data-th-field="${td.toAccount}">
                 <option data-th-each="acc: ${accounts}" 
                     data-th-value="${acc.name}" 
                     data-th-text="${acc.details}">
@@ -40,21 +42,21 @@
         </p>
         <p>
             Amount: 
-            <input 
+            <input data-th-field="${td.amount}" 
                 type="number" name="amount" min="0" value="0" step="0.1">
-                <!-- data-th-field="${details.amount}"  -->
         </p>
         <p>
             Comments
             <input 
-            type="text" name="comment">
-            <!-- data-th-field="${details.comments}"  -->
+            type="text" name="comment" data-th-field="${td.comments}">
         </p>
         <button type="submit">Transfer</button>
         <p>Error Messages: </p>
         <p id="error">
             <!-- area for error message -->
-
+            <!-- <p data-th-if="${#fields.hasErrors('amount')}">
+                <span data-th-errors="*{size}" data-th-errorclass="error"></span>
+            </p> -->
         </p>
 
     </form>

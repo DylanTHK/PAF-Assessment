@@ -30,7 +30,19 @@ public class AccountRepo {
             a.setDetails();
             accounts.add(a);
         }
-        System.out.println("\nAccounts created: " + accounts);
+        // System.out.println("\nAccounts created: " + accounts);
         return accounts;
+    }
+
+    public Account getAccountByName(String name) {
+        final SqlRowSet rs = jdbcTemplate.queryForRowSet(SQL_GET_ACC_BY_NAME, name);
+        Account a = new Account();
+        if(rs.next()) {
+            a.setAccountId(rs.getString("account_id"));
+            a.setName(rs.getString("name"));
+            a.setBalance(rs.getDouble("balance"));
+            a.setDetails();
+        }
+        return a;
     }
 }
