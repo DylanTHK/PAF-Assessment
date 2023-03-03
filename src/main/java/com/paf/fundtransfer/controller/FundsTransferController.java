@@ -19,6 +19,7 @@ import com.paf.fundtransfer.model.Account;
 import com.paf.fundtransfer.model.TransactionDetails;
 import com.paf.fundtransfer.repo.AccountRepo;
 import com.paf.fundtransfer.service.FundsTransferService;
+import com.paf.fundtransfer.service.LogAuditService;
 import com.paf.fundtransfer.service.TransferService;
 
 @Controller
@@ -30,6 +31,9 @@ public class FundsTransferController {
     
     @Autowired
     private FundsTransferService fundsTransferSvc;
+
+    @Autowired
+    private LogAuditService logAuditSvc;
 
     @Autowired
     private AccountRepo accountRepo;
@@ -73,9 +77,10 @@ public class FundsTransferController {
             return "transfer";
         } else {
             // NO ERRORS: perform transfer
-            fundsTransferSvc.performTransaction(td);
+            TransactionDetails newTd = fundsTransferSvc.performTransaction(td);
 
-            // TODO T7.convert transaction details to json (transactionId, date, from_account, "to_account", "amount")
+            // T7.convert transaction details to json (transactionId, date, from_account, "to_account", "amount")
+            logAuditSvc.saveTransaction(newTd);
 
             // T8. Display view
             model.addAttribute("td", td);

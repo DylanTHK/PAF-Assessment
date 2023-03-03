@@ -19,7 +19,7 @@ public class FundsTransferService {
 
     // conduct transaction operations
     @Transactional(rollbackFor = TransferException.class)
-    public void performTransaction(TransactionDetails td) throws TransferException {
+    public TransactionDetails performTransaction(TransactionDetails td) throws TransferException {
         // generate random id
         td.setId(generateRandomId());
         String from = td.getFromAccount();
@@ -38,11 +38,15 @@ public class FundsTransferService {
         System.out.println("\n\nTRANSACTION>>> from: " + fromAcc);
         System.out.println("\nTRANSACTION>>> to: " + toAcc);
         
+        
+
         // check if amount in from negative (if -ve, else roll back)
         String message = "Insufficient balance in account";
         if (fromAcc.getBalance() < 0) {
             throw new TransferException(message);
         }
+
+        return td;
         
     }
 
