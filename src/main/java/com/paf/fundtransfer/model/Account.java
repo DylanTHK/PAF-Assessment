@@ -1,5 +1,6 @@
 package com.paf.fundtransfer.model;
 
+
 public class Account {
     private String accountId;
     private String name;
