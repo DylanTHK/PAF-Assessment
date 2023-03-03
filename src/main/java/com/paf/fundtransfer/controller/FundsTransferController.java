@@ -35,9 +35,6 @@ public class FundsTransferController {
     @Autowired
     private LogAuditService logAuditSvc;
 
-    @Autowired
-    private AccountRepo accountRepo;
-
     @GetMapping(path={"/", "index.html"})
     public String getView(Model model, HttpSession sess) {
         // restart session
