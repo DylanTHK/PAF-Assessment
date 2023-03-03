@@ -7,16 +7,24 @@
     <title>Document</title>
 </head>
 <body>
+    <p>
+        Session: 
+        <span data-th-text="${session.td}"></span>
+    </p>
+    <p>
+        Details:
+        <span data-th-text="${td}"></span>
+    </p>
     <h1>Result Page</h1>
-    <p>Your transfer of 
-        <span>insert_amount</span>
+    <p data-th-object="${td}">Your transfer of $
+        <span data-th-text="*{amount}"></span>
         from
-        <span>insert_from</span>
+        <span data-th-text="*{fromAccount}">insert_from</span>
         to
-        <span>insert_to</span>
+        <span data-th-text="*{toAccount}">insert_to</span>
         is successful
 
-        Transaction id is <span>transaction_id</span>
+        Transaction id is: <span data-th-text="*{id}">transaction_id</span>
     </p>
 </body>
 </html>

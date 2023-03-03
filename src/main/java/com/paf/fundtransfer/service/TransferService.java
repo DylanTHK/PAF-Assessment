@@ -53,20 +53,5 @@ public class TransferService {
         }
         return errors;
     }
-
-    // conduct transaction
-    @Transactional
-    public void performTransaction(TransactionDetails td) {
-        // generate random id
-        td.setId(generateRandomId());
-
-
-    }
-
-         // method to generate 8 char ID
-    public String generateRandomId() {
-    String id = UUID.randomUUID().toString().substring(0,8); 
-    return id;
-}
     
 }

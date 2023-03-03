@@ -64,7 +64,9 @@ public class TransactionDetails {
 
     @Override
     public String toString() {
-        return "TransactionDetails [fromAccount=" + fromAccount + ", toAccount=" + toAccount + ", amount=" + amount
-                + ", comments=" + comments + "]";
+        return "TransactionDetails [id=" + id + ", fromAccount=" + fromAccount + ", toAccount=" + toAccount
+                + ", amount=" + amount + ", comments=" + comments + "]";
     }
+
+
 }

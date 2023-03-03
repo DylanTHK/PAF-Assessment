@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
+import com.paf.fundtransfer.exception.TransferException;
 import com.paf.fundtransfer.model.Account;
 import com.paf.fundtransfer.model.TransactionDetails;
 import com.paf.fundtransfer.repo.AccountRepo;
+import com.paf.fundtransfer.service.FundsTransferService;
 import com.paf.fundtransfer.service.TransferService;
 
 @Controller
@@ -27,6 +29,9 @@ public class FundsTransferController {
     private TransferService transferSvc;
     
     @Autowired
+    private FundsTransferService fundsTransferSvc;
+
+    @Autowired
     private AccountRepo accountRepo;
 
     @GetMapping(path={"/", "index.html"})
@@ -36,11 +41,10 @@ public class FundsTransferController {
 
         // query sql for list of accounts (for thymeleaf)
         List<Account> accounts = transferSvc.getAccounts();
-        
+
         // add list of accounts to 
         model.addAttribute("td", new TransactionDetails());
         model.addAttribute("accounts", accounts);
-        // sess.setAttribute("acc", accounts);
 
         return "index";
     }
@@ -48,11 +52,12 @@ public class FundsTransferController {
     @PostMapping(path="/transfer",
         consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String checkTransfer(Model model, HttpSession sess, 
-        @Valid TransactionDetails td, BindingResult binding) {
+        @Valid TransactionDetails td, BindingResult binding) throws TransferException {
         // if (binding.hasErrors()) {
         //     return "transfer";
         // }
         // System.out.println("\nBinding Results: " + binding);
+        sess.setAttribute("td", td); // Added details to session
 
         System.out.println("\nTransaction Details: " + td);
         List<Account> accounts = transferSvc.getAccounts();
@@ -67,7 +72,12 @@ public class FundsTransferController {
             model.addAttribute("errors", errorMessages);
             return "transfer";
         } else {
-            // NO ERRORS: transferSvc.performTransaction(td);
+            // NO ERRORS: perform transfer
+            fundsTransferSvc.performTransaction(td);
+
+            // TODO T7.convert transaction details to json (transactionId, date, from_account, "to_account", "amount")
+
+            // T8. Display view
             model.addAttribute("td", td);
             return "result";
         }
