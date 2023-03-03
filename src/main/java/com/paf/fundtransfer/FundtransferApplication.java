@@ -1,13 +1,13 @@
-package com.paf.fundapp;
+package com.paf.fundtransfer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FundappApplication {
+public class FundtransferApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FundappApplication.class, args);
+		SpringApplication.run(FundtransferApplication.class, args);
 	}
 
 }

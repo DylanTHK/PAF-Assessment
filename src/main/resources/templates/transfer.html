@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Funds Transfer</h1>
+    <form method="POST" action="/result">
+        <p>
+            From account:
+            <select name="from" id="fromAccount">
+                <option value="fred">fred</option>
+            </select>
+        </p>
+        <p>
+            To account: 
+            <select name="to">
+                <!-- use thymeleaf to populate options -->
+                <!-- https://www.baeldung.com/thymeleaf-iteration -->
+                <option value="barney">barney</option>
+            </select>
+        </p>
+        <p>
+            Amount: 
+            <input type="number" name="amount" min="0" value="0" step="0.1">
+        </p>
+        <p>
+            Comments
+            <input type="text" name="comment">
+        </p>
+        <button type="submit">Transfer</button>
+        <p id="error">
+            <!-- area for error message -->
+
+        </p>
+
+    </form>
+</body>
+</html>

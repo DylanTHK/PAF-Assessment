@@ -1,10 +1,10 @@
-package com.paf.fundapp;
+package com.paf.fundtransfer;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FundappApplicationTests {
+class FundtransferApplicationTests {
 
 	@Test
 	void contextLoads() {
