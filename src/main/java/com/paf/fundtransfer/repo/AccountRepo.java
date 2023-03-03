@@ -45,4 +45,9 @@ public class AccountRepo {
         }
         return a;
     }
+
+    public void updateBalance(String name, Double balance) {
+        Integer result = jdbcTemplate.update(SQL_UPDATE_BALANCE_BY_NAME, balance, name);
+        System.out.println(result);
+    }
 }

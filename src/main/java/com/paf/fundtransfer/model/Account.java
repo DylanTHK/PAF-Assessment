@@ -7,11 +7,13 @@ public class Account {
     private String details;
     private Double balance;
 
-    public void addBalance(Double amt) {
+    public Double addBalance(Double amt) {
         this.balance = balance + amt;
+        return this.balance;
     }
-    public void subtractBalance(Double amt) {
+    public Double subtractBalance(Double amt) {
         this.balance = balance - amt;
+        return this.balance;
     }
     public String getAccountId() {
         return accountId;

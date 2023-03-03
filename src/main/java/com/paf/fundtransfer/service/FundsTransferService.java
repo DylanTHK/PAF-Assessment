@@ -31,8 +31,10 @@ public class FundsTransferService {
         Account toAcc = accRepo.getAccountByName(to);
 
         // update balances
-        fromAcc.subtractBalance(amt);
-        toAcc.addBalance(amt);
+        Double fromBalance = fromAcc.subtractBalance(amt);
+        Double toBalance = toAcc.addBalance(amt);
+        accRepo.updateBalance(from, fromBalance);
+        accRepo.updateBalance(to, toBalance);
         System.out.println("\n\nTRANSACTION>>> from: " + fromAcc);
         System.out.println("\nTRANSACTION>>> to: " + toAcc);
         
