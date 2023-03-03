@@ -4,6 +4,7 @@ package com.paf.fundtransfer.model;
 public class Account {
     private String accountId;
     private String name;
+    private String details;
     private Double balance;
 
     public String getAccountId() {
@@ -24,10 +25,19 @@ public class Account {
     public void setBalance(Double balance) {
         this.balance = balance;
     }
+    public String getDetails() {
+        return details;
+    }
+    public void setDetails() {
+        this.details = name + " (" + accountId + ")";
+    }
+
     @Override
     public String toString() {
-        return "Account [accountId=" + accountId + ", name=" + name + ", balance=" + balance + "]";
+        return "Account [accountId=" + accountId + ", name=" + name + ", details=" + details + ", balance=" + balance
+                + "]";
     }
+
     
 }
 

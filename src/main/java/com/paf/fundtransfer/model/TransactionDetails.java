@@ -1,9 +1,13 @@
 package com.paf.fundtransfer.model;
 
+import java.util.UUID;
+
 import jakarta.validation.constraints.NotNull;
 
 
 public class TransactionDetails {
+    private String id;
+
     @NotNull(message="Please choose an account")
     private String fromAccount;
 
@@ -15,6 +19,17 @@ public class TransactionDetails {
 
     private String comments;
 
+    public TransactionDetails() {
+        // generate id
+        setId(generateRandomId());
+    }
+
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }
     public String getFromAccount() {
         return fromAccount;
     }
@@ -46,11 +61,17 @@ public class TransactionDetails {
     public void setComments(String comments) {
         this.comments = comments;
     }
+    
+     // method to generate 8 char ID
+     public String generateRandomId() {
+        String id = UUID.randomUUID().toString().substring(0,8); 
+        System.out.println("UUID: " + id);
+        return id;
+    }
 
     @Override
     public String toString() {
         return "TransactionDetails [fromAccount=" + fromAccount + ", toAccount=" + toAccount + ", amount=" + amount
                 + ", comments=" + comments + "]";
     }
-
 }

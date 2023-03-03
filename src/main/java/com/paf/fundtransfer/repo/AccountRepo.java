@@ -27,6 +27,7 @@ public class AccountRepo {
             a.setAccountId(rs.getString("account_id"));
             a.setName(rs.getString("name"));
             a.setBalance(rs.getDouble("balance"));
+            a.setDetails();
             accounts.add(a);
         }
         System.out.println("\nAccounts created: " + accounts);
