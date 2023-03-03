@@ -4,11 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        .error {
-            color: red;
-        }
-    </style>
     <title>Document</title>
 </head>
 <body>
@@ -56,12 +51,6 @@
             type="text" name="comment" data-th-field="${td.comments}">
         </p>
         <button type="submit">Transfer</button>
-        <p>Error Messages: </p>
-        <p class="error">
-            <ul data-th-each="e: ${errors}">
-                <li data-th-text="${e}"></li>
-            </ul>
-        </p>
 
     </form>
 </body>

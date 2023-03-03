@@ -1,6 +1,5 @@
 package com.paf.fundtransfer.service;
 
-import java.lang.module.FindException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -19,10 +18,12 @@ public class TransferService {
     @Autowired
     private AccountRepo accountRepo;
 
+    // SQL query
     public List<Account> getAccounts() {
         return accountRepo.getAllAccounts();
     }
 
+    // validattion operations
     public List<String> validateDetails(TransactionDetails td) {
         System.out.println("\n\nTSvc >>> Transaction details: " + td);
         String from = td.getFromAccount();
@@ -53,6 +54,7 @@ public class TransferService {
         return errors;
     }
 
+    // conduct transaction
     @Transactional
     public void performTransaction(TransactionDetails td) {
         // generate random id

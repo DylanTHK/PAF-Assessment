@@ -29,21 +29,20 @@ public class FundsTransferController {
     @Autowired
     private AccountRepo accountRepo;
 
-    @GetMapping(path={"/", "transfer.html"})
+    @GetMapping(path={"/", "index.html"})
     public String getView(Model model, HttpSession sess) {
         // restart session
         sess.invalidate();
 
         // query sql for list of accounts (for thymeleaf)
         List<Account> accounts = transferSvc.getAccounts();
-        System.out.println("\nController >>> list of Accounts: " + accounts);
-
+        
         // add list of accounts to 
         model.addAttribute("td", new TransactionDetails());
         model.addAttribute("accounts", accounts);
         // sess.setAttribute("acc", accounts);
 
-        return "transfer";
+        return "index";
     }
 
     @PostMapping(path="/transfer",
@@ -61,7 +60,7 @@ public class FundsTransferController {
         List<String> errorMessages = transferSvc.validateDetails(td);
         
         System.out.println("List of errors: " + errorMessages);
-        // TODO
+        // check for error messages
         if (errorMessages.size() > 0) {
             model.addAttribute("accounts", accounts);
             model.addAttribute("td", td);
